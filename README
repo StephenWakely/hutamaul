@@ -1,0 +1,4 @@
+== HutaMaul
+
+Hutamaul is a simple html parser that will then split the html according to a given character count. It then churns out valid html, closing any tags that were discarded during the split.
+

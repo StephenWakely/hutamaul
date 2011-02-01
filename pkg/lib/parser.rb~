@@ -1,0 +1,17 @@
+#
+#
+require 'branch'
+
+module Parser
+
+	def self.parse tokens
+		parse_tree = Branch.new nil
+
+		tokens.each { |token|
+			parse_tree << token
+		}
+
+		puts parse_tree.to_indented_s(0)
+		parse_tree
+	end
+end
