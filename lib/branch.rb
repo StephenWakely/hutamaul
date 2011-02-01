@@ -5,8 +5,10 @@
 module Hutamaul
 	
 	class Branch
-	
-	  def initialize token
+
+		attr_accessor :parent	
+	  
+		def initialize token
 			@this_token = token
 			@current_branch = nil
 			@branches = []
@@ -14,22 +16,23 @@ module Hutamaul
 			@closed = false
 		end
 	
+		##
 		#
 		# Pushes new tokens into the branch.
 		# Will push the token up any child branches if they havent been closed off.
 		def << token
 			if current_branch_takes_more
-				@current_branch << token
+			  @current_branch << token
 			elsif token.type == :end_tag
 				@closed = true
 			elsif token.type == :begin_tag 
-				@current_branch = Branch.new token 
-				@branches << @current_branch
+				@current_branch = Branch.new token
+				add_branch @current_branch
 			else
-				@branches << token
+				add_branch token
 	 		end
 		end
-	
+
 	  def current_branch_takes_more
 			!@current_branch.nil? && !@current_branch.closed?
 		end
@@ -53,10 +56,10 @@ module Hutamaul
 			}
 		end
 	
-		def take_chars chars, ellipses = ''
+		def take_chars chars, ellipses = '', &options_block
 			new_branch = Branch.new @this_token
 			@branches.each { |branch|
-				taken = branch.take_chars chars, ellipses
+				taken = branch.take_chars chars, ellipses, &options_block
 	    	new_branch.add_branch taken
 	
 				chars -= taken.char_count
@@ -65,7 +68,11 @@ module Hutamaul
 	
 			new_branch
 		end
-	
+
+		def main_tag
+			@this_token
+		end
+
 		def to_html
 			if @this_token.nil?
 					inner_html
@@ -95,6 +102,7 @@ module Hutamaul
 	
 		def add_branch branch
 			@branches << branch
+			branch.parent = self
 		end
 	end
 end	
