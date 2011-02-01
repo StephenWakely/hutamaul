@@ -2,3 +2,25 @@
 
 Hutamaul is a simple html parser that will then split the html according to a given character count. It then churns out valid html, closing any tags that were discarded during the split.
 
+To use:
+
+html = "<div>some interesting text<span>and then something ok</span>bit more</div>"
+
+
+# This will split the html at the closest word break to 25 characters.
+split_html = Hutamaul.split(html, 25);
+
+# This will split the html at the closes word break to 22 characters and add a ... to the end
+split_html = Hutamaul.split(html, 25, '...') 
+
+# Further options can be set on a tag by tag basis.
+split_html = Hutamaul.split(html, 25, '...') do |options|
+
+	# Text within a <code> tag gets split before the current line
+	options.code { |split| split.before_line }
+
+	# All other text will get split at the requested character.
+	options.else { |split| split.at_character }
+end
+
+
