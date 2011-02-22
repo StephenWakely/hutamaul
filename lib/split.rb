@@ -7,7 +7,7 @@ module Hutamaul
 		attr_accessor :tag
 					
 		def initialize tag, line, ellipses = ""
-			@tag = parse_tag tag.text
+			@tag = parse_tag(tag.text)
 			@line = line.text
 			@ellipses = ellipses
 		end
@@ -16,8 +16,6 @@ module Hutamaul
 			@chars = chars
 		end
 
-		##
-		#
 		# Extracts the tag name.
 		#
 		# <a> becomes a

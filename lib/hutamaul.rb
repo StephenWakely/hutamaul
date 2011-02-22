@@ -1,5 +1,9 @@
 require 'parser'
 require 'tokens'
+require 'branch'
+require 'options'
+require 'split'
+require 'tag'
 
 module Hutamaul
 

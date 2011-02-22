@@ -77,7 +77,7 @@ module Hutamaul
 				# If we have no parent, we are probably just unit testing...
 				Tag.new("<html>")
 			else
-				self.parent.main_tag
+				self.parent.main_tag || Tag.new("<html>")
 			end
 		end
 
