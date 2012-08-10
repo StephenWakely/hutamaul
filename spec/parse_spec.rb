@@ -37,4 +37,14 @@ describe Hutamaul::Parser, "#parser" do
 --rah
 "
 	end
+
+	it "extracts only spans when asked" do
+		tree = Hutamaul::Parser.parse(Hutamaul::Tokens.new("<div>arr<span>oog</span>rah</div>"), ["span"])
+
+		tree[0].to_s.should ==
+"<span>
+-oog
+"
+	end
+
 end

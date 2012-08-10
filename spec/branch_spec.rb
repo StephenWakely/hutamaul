@@ -52,4 +52,13 @@ describe Hutamaul::Branch, "#branch" do
 		split.to_html.should == "<a>hooray...</a>"
 	end
 
+	it "extracts the appropriate tags" do
+
+		branch = Hutamaul::Parser.parse Hutamaul::Tokens.new('<div>wooo<span>hooo</span>arf</div>')
+		extracted = branch.extract(['span'])
+
+		extracted.length.should == 1
+		extracted[0].to_html.should == "<span>hooo</span>"
+	end
+
 end

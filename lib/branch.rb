@@ -104,5 +104,29 @@ module Hutamaul
 			@branches << branch
 			branch.parent = self
 		end
+
+		##
+		#
+		# Extracts the nodes that match the given selectors
+		#
+		def extract selectors
+			if is_match(selectors)
+				return self
+			end
+
+			extracted = []
+
+			@branches
+			.select {|branch| branch.respond_to?(:extract) }
+			.each do |branch|
+					extracted << branch.extract(selectors)
+			end
+
+			return extracted.flatten
+		end
+
+		def is_match selectors
+			return selectors.index { |s| /<#{s}>/ =~	@this_token.to_s }
+		end
 	end
 end	

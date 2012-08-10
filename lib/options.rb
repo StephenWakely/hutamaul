@@ -9,6 +9,14 @@ module Hutamaul
 			@yielded = false
 		end
 
+		##
+		#
+		# Defines which tags we are going to keeps
+		#
+		def keep tagselector
+
+		end
+
     def respond_to?(sym)
 	  	# We respond to everything!
 		  true

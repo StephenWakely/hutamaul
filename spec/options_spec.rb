@@ -65,4 +65,9 @@ describe Hutamaul::Options, "#options" do
 		run.should == 1 
 
 	end
+
+	it "keeps the tags you want" do
+
+
+	end
 end
